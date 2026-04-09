@@ -8,7 +8,25 @@ $nodeProcess = Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd
 
 # Wait for node to be fully ready
 Write-Host "Waiting for blockchain to initialize..." -ForegroundColor DarkGray
-Start-Sleep -Seconds 8
+$retryCount = 0
+$nodeUp = $false
+while ($retryCount -lt 30) {
+    try {
+        $tcp = New-Object System.Net.Sockets.TcpClient("127.0.0.1", 8545)
+        $tcp.Close()
+        $nodeUp = $true
+        break
+    } catch {
+        Start-Sleep -Seconds 1
+        $retryCount++
+    }
+}
+
+if (-not $nodeUp) {
+    Write-Host "!! Error: Local blockchain failed to start on port 8545. !!" -ForegroundColor Red
+    exit
+}
+Write-Host ">> Blockchain is ready!" -ForegroundColor Green
 
 # 2. Deploy Smart Contract
 Write-Host "[2/4] Deploying Smart Contract to Localhost..." -ForegroundColor Yellow
