@@ -10,7 +10,7 @@ function Stop-PortProcess {
     $pidToKill = Get-NetTCPConnection -LocalPort $Port -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -First 1
     if ($pidToKill) {
         Write-Host ">> Stopping $Name (Port $Port, PID $pidToKill)..." -ForegroundColor Yellow
-        Stop-Process -Id $pidToKill -Force
+        Stop-Process -Id $pidToKill -Force -ErrorAction SilentlyContinue
     } else {
         Write-Host ">> No process found on Port $Port ($Name)." -ForegroundColor DarkGray
     }

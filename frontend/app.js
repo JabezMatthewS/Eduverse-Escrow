@@ -10,7 +10,7 @@ const ESCROW_ABI = [
 
 // Provide contract address manually or from deployed script. 
 // Hardhat local node usually deploys sequence to known addresses, but we'll ask user to set this or default.
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; 
+const CONTRACT_ADDRESS = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"; 
 
 let provider;
 let signer;
@@ -220,6 +220,28 @@ async function approveWork(projectId) {
 // Event Listeners
 connectBtn.addEventListener("click", connectWallet);
 createForm.addEventListener("submit", createProject);
+
+// Tab Switching Logic
+function switchTab(tabId) {
+    // Hide all tab panes
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+        pane.classList.add('hidden');
+    });
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected pane
+    const targetPane = document.getElementById('tab-' + tabId);
+    targetPane.classList.remove('hidden');
+    targetPane.classList.add('active');
+    
+    // Set active button
+    event.currentTarget.classList.add('active');
+}
 
 // Init
 window.addEventListener("DOMContentLoaded", initEthers);

@@ -63,29 +63,33 @@
 
             <!-- Projects List Section -->
             <section class="projects-section">
-                <h2>Escrow Dashboard</h2>
+                <div class="dashboard-header-flex">
+                    <h2>Escrow Dashboard</h2>
+                    <div class="tabs-container">
+                        <button class="tab-btn" onclick="switchTab('pending')">Awaiting Deposit</button>
+                        <button class="tab-btn active" onclick="switchTab('locked')">In Progress</button>
+                        <button class="tab-btn" onclick="switchTab('approved')">Completed</button>
+                    </div>
+                </div>
                 
-                <div class="status-columns">
+                <div class="status-tab-content">
                     <!-- Awaiting Deposit -->
-                    <div class="status-col">
-                        <h3 class="col-title"><span class="badge pending">Awaiting Deposit</span></h3>
-                        <div id="list-pending" class="projects-list">
+                    <div id="tab-pending" class="tab-pane hidden">
+                        <div id="list-pending" class="projects-list single-col">
                             <div class="empty-state mini">No pending deposits.</div>
                         </div>
                     </div>
 
                     <!-- In Progress -->
-                    <div class="status-col">
-                        <h3 class="col-title"><span class="badge locked">In Progress</span></h3>
-                        <div id="list-locked" class="projects-list">
+                    <div id="tab-locked" class="tab-pane active">
+                        <div id="list-locked" class="projects-list single-col">
                             <div class="empty-state mini">No active projects.</div>
                         </div>
                     </div>
 
                     <!-- Completed -->
-                    <div class="status-col">
-                        <h3 class="col-title"><span class="badge approved">Completed</span></h3>
-                        <div id="list-approved" class="projects-list">
+                    <div id="tab-approved" class="tab-pane hidden">
+                        <div id="list-approved" class="projects-list single-col">
                             <div class="empty-state mini">No history found.</div>
                         </div>
                     </div>
