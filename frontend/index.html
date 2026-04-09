@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUVERSE | Blockchain Escrow</title>
+    <meta name="description" content="Secure, fraud-proof escrow payments for the EDUVERSE learning platform.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gradient-text">EDUVERSE</span> Escrow
+        </div>
+        <div class="nav-actions">
+            <div id="wallet-status" class="wallet-status disconnected">
+                <div class="status-dot"></div>
+                <span id="wallet-address">Not Connected</span>
+            </div>
+            <button id="connect-wallet-btn" class="btn primary-btn">Connect Wallet</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>Secure Your Freelance Projects</h1>
+            <p>Trustless payments powered by Ethereum smart contracts. Funds are locked until you approve the work.</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Create Project Section -->
+            <section class="card glass-panel create-project-card">
+                <h2>Initiate New Escrow</h2>
+                <form id="create-project-form" class="form-group">
+                    <div class="input-field">
+                        <label for="project-title">Project Title</label>
+                        <input type="text" id="project-title" placeholder="e.g. Build Web3 Backend" required>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label for="project-desc">Description</label>
+                        <textarea id="project-desc" rows="3" placeholder="Briefly describe the task..." required></textarea>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="freelancer-address">Freelancer Address (0x...)</label>
+                        <input type="text" id="freelancer-address" placeholder="0x123..." required>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="project-amount">Amount (ETH)</label>
+                        <input type="number" id="project-amount" step="0.001" placeholder="1.5" required>
+                    </div>
+
+                    <button type="submit" class="btn submit-btn" id="create-btn">
+                        <span>Deploy Escrow</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Projects List Section -->
+            <section class="projects-section">
+                <h2>Escrow Dashboard</h2>
+                
+                <div class="status-columns">
+                    <!-- Awaiting Deposit -->
+                    <div class="status-col">
+                        <h3 class="col-title"><span class="badge pending">Awaiting Deposit</span></h3>
+                        <div id="list-pending" class="projects-list">
+                            <div class="empty-state mini">No pending deposits.</div>
+                        </div>
+                    </div>
+
+                    <!-- In Progress -->
+                    <div class="status-col">
+                        <h3 class="col-title"><span class="badge locked">In Progress</span></h3>
+                        <div id="list-locked" class="projects-list">
+                            <div class="empty-state mini">No active projects.</div>
+                        </div>
+                    </div>
+
+                    <!-- Completed -->
+                    <div class="status-col">
+                        <h3 class="col-title"><span class="badge approved">Completed</span></h3>
+                        <div id="list-approved" class="projects-list">
+                            <div class="empty-state mini">No history found.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Overlay Loader -->
+    <div id="loader-overlay" class="loader-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loader-text">Processing Transaction...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-msg">Success!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
