@@ -21,46 +21,88 @@ A secure, trustless escrow payment system designed for the **EDUVERSE** hybrid l
 -   **Backend**: Node.js, Express.js.
 -   **Blockchain Interactivity**: Ethers.js v6.
 
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v18.x or higher)
+- [MetaMask](https://metamask.io/) browser extension
+- [Python 3](https://www.python.org/) (for the lightweight frontend server)
+
+---
+
 ## 🚀 Quick Start (Automated)
 
 The quickest way to get everything running on Windows is using the provided PowerShell scripts.
 
-### 1. Setup
-Clone the repository and install dependencies in both the `smart-contract` and `backend` folders:
+### Step 1: Install Dependencies
+Open a terminal and run the installations for both the smart contract and backend environments:
 ```powershell
-# Inside smart-contract/
+# Install smart contract dependencies
+cd smart-contract
 npm install
 
-# Inside backend/
+# Install backend dependencies
+cd ../backend
 npm install
+cd ..
 ```
 
-### 2. Run the Stack
-Simply run the start script in the root directory:
+### Step 2: Configure MetaMask
+1. Open MetaMask and go to **Settings > Networks > Add Network > Add a network manually**.
+2. Enter the following details:
+   - **Network Name**: Hardhat Localhost
+   - **RPC URL**: `http://127.0.0.1:8545`
+   - **Chain ID**: `1337`
+   - **Currency**: `ETH`
+3. Click **Save** and switch to this network.
+
+### Step 3: Run the Master Script
+Run the automated start script from the root project folder:
 ```powershell
 ./start.ps1
 ```
-This will automatically:
-1.  Launch a local Hardhat blockchain.
-2.  Deploy the Escrow contract.
-3.  Start the Express API.
-4.  Launch the Frontend web server.
+This script will:
+- Start the local blockchain node.
+- Deploy the Escrow contract.
+- Launch the Express backend.
+- Start the Frontend web server.
+- **Display all necessary addresses and URLs on your screen!**
 
-### 3. Stop the Stack
-To safely shut down all servers and free up the ports:
+---
+
+## 🛠️ Manual Usage / Testing Guide
+
+If you want to simulate a real-world transaction, follow these steps:
+
+1. **Import Test Accounts**:
+   - Look at the terminal window labeled "Hardhat Node".
+   - Copy the **Private Key** of `Account #0` and import it into MetaMask (this is your **Client**).
+   - Copy the **Private Key** of `Account #1` and import it into MetaMask (this is your **Freelancer**).
+
+2. **Initiate Escrow**:
+   - Go to `http://localhost:8000`.
+   - Connect your wallet as the **Client**.
+   - Fill in the form: Enter the Freelancer's address (`Account #1`) and an amount (e.g., `0.5 ETH`).
+   - Click **Deploy Escrow** and confirm the transaction in MetaMask.
+
+3. **Verify the "Locked" State**:
+   - The project will appear in the **In Progress** column.
+   - The funds are now securely held by the smart contract.
+
+4. **Approve & Release**:
+   - As the **Client**, click the **Approve & Release** button.
+   - Once confirmed, the funds will be instantly transferred to the Freelancer's wallet.
+   - The project will move to the **Completed** column.
+
+---
+
+## 🛑 Stopping the System
+
+To stop all background processes and clear the ports, run:
 ```powershell
 ./stop.ps1
 ```
 
-## 🔐 Manual Configuration (MetaMask)
-
-To interact with the local system, configure a new network in MetaMask:
--   **Network Name**: Hardhat Localhost
--   **RPC URL**: `http://127.0.0.1:8545`
--   **Chain ID**: `1337`
--   **Currency**: `ETH`
-
-*Remember to import at least two accounts from the Hardhat terminal using their Private Keys.*
 
 ## 📁 Project Structure
 
